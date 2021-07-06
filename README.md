@@ -16,7 +16,7 @@ npm i vue-cloudinary-image
 
 ```javascript
 Vue.use(CloudinaryImage, {
-  cloudinaryBaseUrl: "localhost:3000",
+  cloudinaryBaseUrl: "https://res.cloudinary.com/<your-cloud-name>/image/upload/",
 });
 ```
 
