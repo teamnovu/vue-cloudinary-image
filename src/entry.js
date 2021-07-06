@@ -22,7 +22,6 @@ const install = function installCloudinaryImage (Vue, options) {
   if (
     !cloudinaryBaseUrl ||
     typeof cloudinaryBaseUrl !== 'string' ||
-    !(cloudinaryBaseUrl instanceof String) ||
     cloudinaryBaseUrl.length === 0
   ) {
     throw new Error('cloudinaryBaseUrl was not properly configured.')
