@@ -2,6 +2,8 @@
   "name": "@teamnovu/vue-cloudinary-image",
   "version": "0.0.3",
   "description": "Simple Cloudinary Image component for vue",
+  "repository": "teamnovu/vue-cloudinary-image",
+  "license": "MIT",
   "main": "dist/cloudinary-image.ssr.js",
   "browser": "dist/cloudinary-image.esm.js",
   "module": "dist/cloudinary-image.esm.js",
