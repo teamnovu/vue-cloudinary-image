@@ -1,6 +1,6 @@
 {
-  "name": "vue-cloudinary-image",
-  "version": "1.0.15",
+  "name": "@teamnovu/vue-cloudinary-image",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/cloudinary-image.ssr.js",
   "browser": "dist/cloudinary-image.esm.js",
