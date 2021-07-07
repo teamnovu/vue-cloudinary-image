@@ -188,18 +188,24 @@ export default {
 
       if (!placeholder) {
         if (width) transformations.push(`w_${width}`)
-        if (width && aspectRatio) transformations.push(`h_${Math.round(width / aspectRatio)}`)
         if (quality) transformations.push(`q_${quality}`)
         if (blur) transformations.push(`e_blur:${blur}`)
         if (format) transformations.push(`f_${format}`)
+        if (width && aspectRatio) {
+          transformations.push(`h_${Math.round(width / aspectRatio)}`)
+        } else if (!width && aspectRatio) {
+          transformations.push(`ar_${aspectRatio}`)
+        }
       } else {
         if (this.$cloudinaryImage.placeholderTransformation) {
           transformations.push(`t_${this.$cloudinaryImage.placeholderTransformation}`)
         } else {
           transformations.push('e_blur:2000,f_auto,q_auto:eco,w_300,z_1.1')
         }
+        if (aspectRatio) transformations.push(`ar_${aspectRatio}`)
       }
       if (crop) transformations.push(`c_${crop}`)
+
       if (focal && ['crop', 'fill', 'lfill', 'lpad', 'mpad', 'pad'].includes(this.crop)) {
         if (Array.isArray(focal)) {
           transformations.push(`x_${focal[0]},y_${focal[1]}`)
