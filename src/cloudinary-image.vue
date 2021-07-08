@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import urlJoin from 'url-join'
+import { joinURL, encodePath } from 'ufo'
 
 export default {
   props: {
@@ -181,7 +181,7 @@ export default {
       placeholder = false,
     }) {
       if (!this.fileTypeSupported) {
-        return urlJoin(this.$cloudinaryImage.cloudinaryBaseUrl, this.src)
+        return joinURL(this.$cloudinaryImage.cloudinaryBaseUrl, encodePath(this.src))
       }
 
       const transformations = []
@@ -223,10 +223,10 @@ export default {
         const remoteFolder = remoteFolderMapping[1]
         const baseURLWithoutRemoteFolder = this.$cloudinaryImage.cloudinaryBaseUrl.replace(remoteFolder, '')
 
-        return urlJoin(baseURLWithoutRemoteFolder, transformations.join(','), remoteFolder, this.src)
+        return joinURL(baseURLWithoutRemoteFolder, transformations.join(','), remoteFolder, encodePath(this.src))
       }
 
-      return urlJoin(this.$cloudinaryImage.cloudinaryBaseUrl, transformations.join(','), this.src)
+      return joinURL(this.$cloudinaryImage.cloudinaryBaseUrl, transformations.join(','), encodePath(this.src))
     },
   },
 }

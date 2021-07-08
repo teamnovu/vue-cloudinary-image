@@ -24,7 +24,7 @@
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "dependencies": {
-    "url-join": "^4.0.1"
+    "ufo": "^0.7.7"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
