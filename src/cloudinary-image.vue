@@ -92,11 +92,11 @@ export default {
       const srcSet = sizes.map(
         (size) =>
           this.generateSrc({
-            width: size,
             quality: this.quality,
+            width: size,
             format: this.format,
-            crop: this.crop,
             aspectRatio: this.aspectRatio,
+            crop: this.crop,
           }) + ` ${size}w`,
       )
 
