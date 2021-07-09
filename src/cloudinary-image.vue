@@ -207,7 +207,7 @@ export default {
       }
       if (crop) transformations.push(`c_${crop}`)
 
-      if (focal && ['crop', 'fill', 'lfill', 'lpad', 'mpad', 'pad'].includes(this.crop)) {
+      if (focal && ['crop', 'fill', 'lfill', 'lpad', 'mpad', 'pad', 'thumb'].includes(this.crop)) {
         if (Array.isArray(focal)) {
           transformations.push(`x_${focal[0]},y_${focal[1]},g_xy_center`)
         } else {
