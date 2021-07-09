@@ -97,6 +97,7 @@ export default {
             format: this.format,
             aspectRatio: this.aspectRatio,
             crop: this.crop,
+            focal: this.focal,
           }) + ` ${size}w`,
       )
 
