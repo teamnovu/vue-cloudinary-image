@@ -15,6 +15,8 @@ npm i @teamnovu/vue-cloudinary-image
 ## Setup
 
 ```javascript
+import CloudinaryImage from '@teamnovu/vue-cloudinary-image'
+
 Vue.use(CloudinaryImage, {
   cloudinaryBaseUrl: "https://res.cloudinary.com/<your-cloud-name>/image/upload/",
 });
