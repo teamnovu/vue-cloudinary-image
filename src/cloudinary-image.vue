@@ -26,8 +26,8 @@ export default {
     },
     quality: {
       required: false,
-      type: Number,
-      default: 85,
+      type: [Number, String],
+      default: 'auto',
     },
     blur: {
       required: false,
