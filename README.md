@@ -9,6 +9,10 @@ Generates srcSet with a placeholder for lazyloading based on screen sizes passed
 ## Installation
 
 ```shell
+// yarn
+yarn add @teamnovu/vue-cloudinary-image
+
+// npm
 npm i @teamnovu/vue-cloudinary-image
 ```
 
