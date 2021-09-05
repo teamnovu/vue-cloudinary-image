@@ -36,6 +36,7 @@ export default {
     crop: {
       required: false,
       type: String,
+      default: 'lfill',
     },
     format: {
       required: false,
