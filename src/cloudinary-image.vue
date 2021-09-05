@@ -70,6 +70,11 @@ export default {
       type: [Array, String],
       default: 'auto',
     },
+    fallbackWidth: {
+      required: false,
+      type: Number,
+      default: 2000,
+    },
   },
   data () {
     return {
