@@ -207,7 +207,7 @@ export default {
         if (quality) transformations.push(`q_${quality}`)
         if (blur) transformations.push(`e_blur:${blur}`)
         if (format) transformations.push(`f_${format}`)
-        if (zoom) transformations.push(`f_${zoom}`)
+        if (zoom) transformations.push(`z_${zoom}`)
         if (width && aspectRatio) {
           transformations.push(`h_${Math.round(width / aspectRatio)}`)
         } else if (!width && aspectRatio) {
