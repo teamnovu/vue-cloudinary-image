@@ -55,6 +55,7 @@ Vue.use(CloudinaryImage, {
 | placeholderQuality | 30      | false    | Number  | Cloudinary Option                                                                                                                                                                                                     |
 | placeholderWidth   | 300     | false    | Number  | Cloudinary Option                                                                                                                                                                                                     |
 | usePlaceholder     | true    | false    | Boolean | If this attribute is set to false, no placeholder will be displayed and the original image will be rendered immediately                                                                                          |
+| zoom     | undefined    | false    | String, Number |  Zoom level |
 
 ## Example
 

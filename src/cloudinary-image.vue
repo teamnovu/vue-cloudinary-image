@@ -76,6 +76,11 @@ export default {
       type: Number,
       default: 2000,
     },
+    zoom: {
+      required: false,
+      type: [String, Number],
+      default: undefined,
+    },
   },
   data () {
     return {
@@ -104,6 +109,7 @@ export default {
             aspectRatio: this.aspectRatio,
             crop: this.crop,
             focal: this.focal,
+            zoom: this.zoom,
           }) + ` ${size}w`,
       )
 
@@ -121,6 +127,7 @@ export default {
         aspectRatio: this.aspectRatio,
         crop: this.crop,
         focal: this.focal,
+        zoom: this.zoom,
       })
     },
     placeholderUrl () {
@@ -136,6 +143,7 @@ export default {
         crop: this.crop,
         focal: this.focal,
         placeholder: true,
+        zoom: this.zoom,
       })
     },
   },
@@ -186,6 +194,7 @@ export default {
       format,
       focal,
       placeholder = false,
+      zoom,
     }) {
       if (!this.fileTypeSupported) {
         return joinURL(this.$cloudinaryImage.cloudinaryBaseUrl, encodePath(this.src))
@@ -198,6 +207,7 @@ export default {
         if (quality) transformations.push(`q_${quality}`)
         if (blur) transformations.push(`e_blur:${blur}`)
         if (format) transformations.push(`f_${format}`)
+        if (zoom) transformations.push(`f_${zoom}`)
         if (width && aspectRatio) {
           transformations.push(`h_${Math.round(width / aspectRatio)}`)
         } else if (!width && aspectRatio) {
