@@ -1,6 +1,6 @@
 {
   "name": "@teamnovu/vue-cloudinary-image",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Simple Cloudinary Image component for vue",
   "repository": "teamnovu/vue-cloudinary-image",
   "license": "MIT",
