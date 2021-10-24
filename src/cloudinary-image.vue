@@ -5,13 +5,15 @@
     :src="originalUrl"
     :srcset="imgSrcSet"
     :sizes="sizes"
-    width="100%"
+    :width="imgWidth"
+    :height="imgHeight"
     @load="onLoaded"
   >
   <img
     v-else
     :src="originalUrl"
-    width="100%"
+    :width="imgWidth"
+    :height="imgHeight"
   >
 </template>
 
@@ -75,6 +77,14 @@ export default {
       required: false,
       type: Number,
       default: 2000,
+    },
+    width: {
+      type: [String, Number],
+      default: undefined,
+    },
+    height: {
+      type: [String, Number],
+      default: undefined,
     },
     zoom: {
       required: false,
@@ -145,6 +155,28 @@ export default {
         placeholder: true,
         zoom: this.zoom,
       })
+    },
+    imgWidth () {
+      if ((this.width && this.height) || (this.width && this.aspectRatio)) {
+        return this.width
+      }
+
+      if (this.aspectRatio && this.height && Number(this.height) > 0) {
+        return this.height * this.aspectRatio
+      }
+
+      return undefined
+    },
+    imgHeight () {
+      if ((this.width && this.height) || (this.height && this.aspectRatio)) {
+        return this.height
+      }
+
+      if (this.aspectRatio && this.width && Number(this.width) > 0) {
+        return this.width / this.aspectRatio
+      }
+
+      return undefined
     },
   },
   created () {
