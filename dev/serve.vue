@@ -17,6 +17,9 @@ export default Vue.extend({
       crop="fill"
       :width="200"
       :aspect-ratio="1"
+      :transforms="{
+        a: '90',
+      }"
     />
   </div>
 </template>

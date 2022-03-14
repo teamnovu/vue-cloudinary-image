@@ -91,6 +91,11 @@ export default {
       type: [String, Number],
       default: undefined,
     },
+    transforms: {
+      required: false,
+      type: [String, Object],
+      default: undefined,
+    },
   },
   data () {
     return {
@@ -120,6 +125,7 @@ export default {
             crop: this.crop,
             focal: this.focal,
             zoom: this.zoom,
+            transforms: this.transforms,
           }) + ` ${size}w`,
       )
 
@@ -138,6 +144,7 @@ export default {
         crop: this.crop,
         focal: this.focal,
         zoom: this.zoom,
+        transforms: this.transforms,
       })
     },
     placeholderUrl () {
@@ -154,6 +161,7 @@ export default {
         focal: this.focal,
         placeholder: true,
         zoom: this.zoom,
+        transforms: this.transforms,
       })
     },
     imgWidth () {
@@ -227,6 +235,7 @@ export default {
       focal,
       placeholder = false,
       zoom,
+      transforms: additionalTransforms,
     }) {
       if (!this.fileTypeSupported) {
         return joinURL(this.$cloudinaryImage.cloudinaryBaseUrl, encodePath(this.src))
@@ -260,6 +269,16 @@ export default {
           transformations.push(`x_${focal[0]},y_${focal[1]},g_xy_center`)
         } else {
           transformations.push(`g_${focal}`)
+        }
+      }
+
+      if (additionalTransforms) {
+        if (typeof additionalTransforms === 'object') {
+          Object.entries(additionalTransforms).forEach(([key, value]) => {
+            transformations.push(`${key}_${value}`)
+          })
+        } else {
+          transformations.push(additionalTransforms)
         }
       }
 
