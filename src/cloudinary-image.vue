@@ -7,14 +7,16 @@
     :sizes="sizes"
     :width="imgWidth"
     :height="imgHeight"
+    :aspect-ratio="aspectRatio"
     @load="onLoaded"
-  >
+  />
   <img
     v-else
     :src="originalUrl"
     :width="imgWidth"
     :height="imgHeight"
-  >
+    :aspect-ratio="aspectRatio"
+  />
 </template>
 
 <script>
@@ -34,6 +36,7 @@ export default {
     blur: {
       required: false,
       type: Number,
+      default: undefined,
     },
     crop: {
       required: false,
@@ -48,6 +51,7 @@ export default {
     aspectRatio: {
       required: false,
       type: Number,
+      default: undefined,
     },
     placeholderQuality: {
       required: false,
@@ -67,6 +71,7 @@ export default {
     placeholderDataUrl: {
       required: false,
       type: String,
+      default: undefined,
     },
     focal: {
       required: false,
@@ -113,25 +118,30 @@ export default {
         ['jpg', 'png', 'gif', 'webp', 'jpeg', 'avif'].includes(fileExtension.toLowerCase())
       )
     },
+    breakpointSizes () {
+      return this.screens.map((screen) => screen.size.replace('px', ''))
+    },
+    largestBreakpointSize () {
+      return this.breakpointSizes[0]
+    },
     imgSrcSet () {
-      const sizes = this.screens.map((screen) => screen.size.replace('px', ''))
-      const srcSet = sizes.map(
-        (size) =>
+      const srcSet = this.breakpointSizes.map(
+        (breakpointSize) =>
           this.generateSrc({
             quality: this.quality,
-            width: size,
+            width: breakpointSize,
             format: this.format,
             aspectRatio: this.aspectRatio,
             crop: this.crop,
             focal: this.focal,
             zoom: this.zoom,
-            transforms: this.transforms,
-          }) + ` ${size}w`,
+          }) + ` ${breakpointSize}w`,
       )
 
       if (this.usePlaceholder) {
         srcSet.push(this.placeholderUrl + ' 32w')
       }
+
       return srcSet.join(',')
     },
     originalUrl () {
@@ -173,7 +183,7 @@ export default {
         return this.height * this.aspectRatio
       }
 
-      return undefined
+      return this.largestBreakpointSize
     },
     imgHeight () {
       if ((this.width && this.height) || (this.height && this.aspectRatio)) {
@@ -182,6 +192,21 @@ export default {
 
       if (this.aspectRatio && this.width && Number(this.width) > 0) {
         return this.width / this.aspectRatio
+      }
+
+      if (this.aspectRatio) {
+        return this.largestBreakpointSize / this.aspectRatio
+      }
+
+      return undefined
+    },
+    imgAspectRatio () {
+      if (this.aspectRatio) {
+        return this.aspectRatio
+      }
+
+      if (this.imgWidth && this.imgHeight) {
+        return this.imgWidth / this.imgHeight
       }
 
       return undefined
@@ -209,10 +234,38 @@ export default {
       return new Promise((resolve) => {
         window.requestAnimationFrame(() => {
           if (this.$refs.imageRef) {
-            const imageWidth = this.$refs.imageRef.getBoundingClientRect()
-              .width
-            const size = Math.ceil((imageWidth / window.innerWidth) * 100)
-            this.sizes = `${size}vw`
+            const containerWidth =
+              this.$refs.imageRef.getBoundingClientRect().width
+            const isCover =
+              getComputedStyle(this.$refs.imageRef).objectFit === 'cover'
+
+            if (isCover) {
+              const containerHeight =
+                this.$refs.imageRef.getBoundingClientRect().height
+              const containerAspectRatio = containerWidth / containerHeight
+              console.log({ containerAspectRatio })
+
+              if (this.imgAspectRatio > containerAspectRatio) {
+                const size = Math.ceil(
+                  (Math.round(containerHeight) /
+                    Math.round(window.innerHeight)) *
+                    100,
+                )
+                this.sizes = `${size}vh`
+              } else {
+                const size = Math.ceil(
+                  (Math.round(containerWidth) / Math.round(window.innerWidth)) *
+                    100,
+                )
+                this.sizes = `${size}vw`
+              }
+            } else {
+              const size = Math.ceil(
+                (Math.round(containerWidth) / Math.round(window.innerWidth)) *
+                  100,
+              )
+              this.sizes = `${size}vw`
+            }
           }
           resolve()
         })
@@ -299,6 +352,3 @@ export default {
   },
 }
 </script>
-
-<style>
-</style>

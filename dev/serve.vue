@@ -12,14 +12,32 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <cloudinary-image
-      src="/sample.jpg"
-      crop="fill"
-      :width="200"
-      :aspect-ratio="1"
-      :transforms="{
-        a: '90',
-      }"
-    />
+    <div>
+      <cloudinary-image
+          src="/sample.jpg"
+          crop="fill"
+          :width="200"
+          :aspect-ratio="1"
+          :transforms="{
+          a: '90',
+        }"
+      />
+    </div>
+
+    <div>
+      <cloudinary-image
+        :style="{
+          width: '100px',
+          height: '200px',
+          objectFit: 'cover',
+        }"
+        src="/sample.jpg"
+        crop="fill"
+        :aspect-ratio="2"
+        :transforms="{
+          a: '90',
+        }"
+      />
+    </div>
   </div>
 </template>
