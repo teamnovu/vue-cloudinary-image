@@ -4,7 +4,7 @@
     ref="imageRef"
     :src="originalUrl"
     :srcset="imgSrcSet"
-    :sizes="sizes"
+    :sizes="imgSizes"
     :width="imgWidth"
     :height="imgHeight"
     :aspect-ratio="imgAspectRatio"
@@ -101,10 +101,15 @@ export default {
       type: [String, Object],
       default: undefined,
     },
+    sizes: {
+      required: false,
+      type: String,
+      default: undefined,
+    },
   },
   data () {
     return {
-      sizes: '1px',
+      internalSizes: '1px',
       isLoading: true,
     }
   },
@@ -211,6 +216,9 @@ export default {
 
       return undefined
     },
+    imgSizes () {
+      return this.sizes || this.internalSizes
+    },
   },
   created () {
     const screens = Object.entries(this.$cloudinaryImage.screenSizes)
@@ -250,20 +258,20 @@ export default {
                     Math.round(window.innerHeight)) *
                     100,
                 )
-                this.sizes = `${size}vh`
+                this.internalSizes = `${size}vh`
               } else {
                 const size = Math.ceil(
                   (Math.round(containerWidth) / Math.round(window.innerWidth)) *
                     100,
                 )
-                this.sizes = `${size}vw`
+                this.internalSizes = `${size}vw`
               }
             } else {
               const size = Math.ceil(
                 (Math.round(containerWidth) / Math.round(window.innerWidth)) *
                   100,
               )
-              this.sizes = `${size}vw`
+              this.internalSizes = `${size}vw`
             }
           }
           resolve()
