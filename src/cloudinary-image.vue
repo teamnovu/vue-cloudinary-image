@@ -243,7 +243,6 @@ export default {
               const containerHeight =
                 this.$refs.imageRef.getBoundingClientRect().height
               const containerAspectRatio = containerWidth / containerHeight
-              console.log({ containerAspectRatio })
 
               if (this.imgAspectRatio > containerAspectRatio) {
                 const size = Math.ceil(
