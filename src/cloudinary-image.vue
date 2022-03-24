@@ -7,7 +7,7 @@
     :sizes="sizes"
     :width="imgWidth"
     :height="imgHeight"
-    :aspect-ratio="aspectRatio"
+    :aspect-ratio="imgAspectRatio"
     @load="onLoaded"
   />
   <img
@@ -15,7 +15,7 @@
     :src="originalUrl"
     :width="imgWidth"
     :height="imgHeight"
-    :aspect-ratio="aspectRatio"
+    :aspect-ratio="imgAspectRatio"
   />
 </template>
 
