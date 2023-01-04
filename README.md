@@ -16,6 +16,8 @@ yarn add @teamnovu/vue-cloudinary-image
 npm i @teamnovu/vue-cloudinary-image
 ```
 
+For vue2 use a version < v3.0.0
+
 ## Setup
 
 ```javascript
