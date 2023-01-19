@@ -4,7 +4,6 @@
     :src="originalUrl"
     :width="imgWidth"
     :height="imgHeight"
-    :aspect-ratio="imgAspectRatio"
     v-bind="fileTypeSupported && {
       srcset: imgSrcSet,
       sizes: imgSizes,
