@@ -1,5 +1,5 @@
 // Import vue component
-import component from '@/cloudinary-image.vue'
+import component from './cloudinary-image.vue'
 import defaultScreenSizes from './default-screen-sizes'
 
 export default {
