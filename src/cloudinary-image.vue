@@ -1,22 +1,14 @@
 <template>
   <img
-    v-if="fileTypeSupported"
     ref="imageRef"
     :src="originalUrl"
-    :srcset="imgSrcSet"
-    :sizes="imgSizes"
     :width="imgWidth"
     :height="imgHeight"
-    :aspect-ratio="imgAspectRatio"
-    @load="onLoaded"
-  />
-  <img
-    v-else
-    :src="originalUrl"
-    :width="imgWidth"
-    :height="imgHeight"
-    :aspect-ratio="imgAspectRatio"
-  />
+    v-bind="fileTypeSupported && {
+      srcset: imgSrcSet,
+      sizes: imgSizes,
+    }"
+  >
 </template>
 
 <script>
@@ -233,6 +225,14 @@ export default {
   },
   mounted () {
     window.addEventListener('resize', this.onResize, { passive: true })
+
+    if (this.fileTypeSupported) {
+      this.$refs.imageRef.addEventListener('load', this.onLoad, { passive: true })
+
+      if (this.$refs.imageRef.complete) {
+        this.onLoad()
+      }
+    }
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.onResize)
@@ -281,7 +281,7 @@ export default {
     onResize () {
       this.updateSizes()
     },
-    async onLoaded () {
+    async onLoad () {
       await this.updateSizes()
       this.isLoading = false
     },
