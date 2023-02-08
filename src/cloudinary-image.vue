@@ -102,7 +102,6 @@ export default {
   data () {
     return {
       internalSizes: '1px',
-      isLoading: true,
     }
   },
   computed: {
@@ -226,64 +225,75 @@ export default {
   mounted () {
     window.addEventListener('resize', this.onResize, { passive: true })
 
-    if (this.fileTypeSupported) {
-      this.$refs.imageRef.addEventListener('load', this.onLoad, { passive: true })
+    if (!this.fileTypeSupported) return
 
-      if (this.$refs.imageRef.complete) {
-        this.onLoad()
-      }
+    this.$refs.imageRef.addEventListener('load', this.onLoad, { passive: true })
+
+    // if the image is already loaded if it comes from the cache
+    if (this.$refs.imageRef.complete) {
+      this.onLoad()
     }
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
-    updateSizes () {
-      return new Promise((resolve) => {
-        window.requestAnimationFrame(() => {
-          if (this.$refs.imageRef) {
-            const containerWidth =
-              this.$refs.imageRef.getBoundingClientRect().width
-            const isCover =
-              getComputedStyle(this.$refs.imageRef).objectFit === 'cover'
+    async updateSizes () {
+      if (!this.$refs.imageRef) return
 
-            if (isCover) {
-              const containerHeight =
-                this.$refs.imageRef.getBoundingClientRect().height
-              const containerAspectRatio = containerWidth / containerHeight
+      // wait until the style properties are applied (chrome bug)
+      const objectFit = await this.getObjectFit(this.$refs.imageRef)
 
-              if (this.imgAspectRatio > containerAspectRatio) {
-                const size = Math.ceil(
-                  (Math.round(containerHeight) /
-                    Math.round(window.innerHeight)) *
-                    100,
-                )
-                this.internalSizes = `${size}vh`
-              } else {
-                const size = Math.ceil(
-                  (Math.round(containerWidth) / Math.round(window.innerWidth)) *
-                    100,
-                )
-                this.internalSizes = `${size}vw`
-              }
-            } else {
-              const size = Math.ceil(
-                (Math.round(containerWidth) / Math.round(window.innerWidth)) *
-                  100,
-              )
-              this.internalSizes = `${size}vw`
-            }
+      const containerWidth = this.$refs.imageRef.getBoundingClientRect().width
+
+      if (objectFit === 'cover') {
+        const containerHeight = this.$refs.imageRef.getBoundingClientRect().height
+        const containerAspectRatio = containerWidth / containerHeight
+
+        if (this.imgAspectRatio > containerAspectRatio) {
+          const size = Math.ceil(
+            (Math.round(containerHeight) / Math.round(window.innerHeight)) * 100)
+          this.internalSizes = `${size}vh`
+        } else {
+          const size = Math.ceil(
+            (Math.round(containerWidth) / Math.round(window.innerWidth)) * 100)
+          this.internalSizes = `${size}vw`
+        }
+      } else {
+        const size = Math.ceil(
+          (Math.round(containerWidth) / Math.round(window.innerWidth)) * 100)
+        this.internalSizes = `${size}vw`
+      }
+    },
+    getObjectFit (element, counter = 0) {
+      /**
+         * Unfortunately, objectFit on getComputedStyle of an element is not available for an unknown time in chrome.
+         * This is a workaround to wait for the objectFit to be available.
+         *
+         * The function works by using a combination of `requestAnimationFrame` and a `Promise` to repeatedly check the value of the `display` property from the element's computed styles until it is no longer an empty string or 100 iterations have passed.
+        */
+      return (new Promise(resolve => {
+        if (counter === 100) { // thinking: 100/60fps = 1.66 seconds
+          console.error('display of app-image never became non-empty. Tell Tom or Manu or Kyle or Nattha to fix this.')
+          return resolve('')
+        }
+
+        requestAnimationFrame(() => {
+          const display = getComputedStyle(element).getPropertyValue('display')
+
+          if (display) {
+            resolve(getComputedStyle(element).getPropertyValue('object-fit'))
+          } else {
+            this.getObjectFit(element, ++counter).then(resolve)
           }
-          resolve()
         })
-      })
+      }))
     },
     onResize () {
       this.updateSizes()
     },
     async onLoad () {
       await this.updateSizes()
-      this.isLoading = false
     },
     generateSrc ({
       quality,
