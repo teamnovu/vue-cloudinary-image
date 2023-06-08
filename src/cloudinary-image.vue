@@ -234,7 +234,7 @@ export default {
       this.onLoad()
     }
   },
-  beforeDestroy () {
+  beforeUnmount () {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
