@@ -8,9 +8,6 @@ export default {
 
     const isObj = (obj) => typeof obj === 'object' && obj !== null
 
-    console.log('i am published')
-    console.log('defaultScreenSizes:', defaultScreenSizes)
-
     if (
       !screenSizes ||
           !isObj(screenSizes) ||
