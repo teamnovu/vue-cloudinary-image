@@ -349,7 +349,7 @@ export default {
       if (remoteFolderMapping?.length >= 1) {
         // need to do some weird logic to get the remote folder after image/upload after the operations and before the src
         const remoteFolder = remoteFolderMapping[1]
-        const baseURLWithoutRemoteFolder = this.$cloudinaryImage.cloudinaryBaseUrl.replace(remoteFolder, '')
+        const baseURLWithoutRemoteFolder = this.$cloudinaryImage.cloudinaryBaseUrl.replace(new RegExp(`${remoteFolder}$`), '')
 
         return joinURL(baseURLWithoutRemoteFolder, transformations.join(','), remoteFolder, encodePath(this.src))
       }
