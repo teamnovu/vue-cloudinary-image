@@ -103,7 +103,7 @@ export default {
       required: false,
       type: String,
       default: 'lazy',
-    }
+    },
   },
   data () {
     return {
