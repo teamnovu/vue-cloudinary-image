@@ -60,7 +60,7 @@ Vue.use(CloudinaryImage, {
 | zoom               | undefined    | false    | String, Number | Zoom level                                                                                                                                                                                                      |
 | sizes              | undefined    | false    | String | Fixed `sizes` attribute for img tag                                                                                                                                                                               |
 | transforms         | undefined    | false    | String, Object | Additional, raw transformations                                                                                                                                                                                 |
-| loading     | 'lazy'    | false    | String |  Image loading property |
+| loading            | 'lazy'      | false    | String |  Image loading property. Use `loading="eager"` to load the image immediately |
 
 ## Example
 
