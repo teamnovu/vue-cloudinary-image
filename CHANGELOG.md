@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/teamnovu/vue-cloudinary-image/compare/v3.0.4...v4.0.0) (2024-10-16)
+
+
+### Features
+
+* enable lazy loading by default ([8f5db86](https://github.com/teamnovu/vue-cloudinary-image/commit/8f5db86d6d1e43a39c5ec673dd63ab59d131fdfe))
+
 ### [3.0.4](https://github.com/teamnovu/vue-cloudinary-image/compare/v3.0.2...v3.0.4) (2023-06-23)
 
 ## [2.0.0](https://github.com/teamnovu/vue-cloudinary-image/compare/v1.1.1...v2.0.0) (2022-03-24)
