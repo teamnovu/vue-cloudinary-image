@@ -8,6 +8,7 @@
       srcset: imgSrcSet,
       sizes: imgSizes,
     }"
+    :loading="loading"
   >
 </template>
 
@@ -98,6 +99,11 @@ export default {
       type: String,
       default: undefined,
     },
+    loading: {
+      required: false,
+      type: String,
+      default: 'lazy',
+    }
   },
   data () {
     return {
