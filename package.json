@@ -1,7 +1,7 @@
 {
-  "name": "coliste",
+  "name": "teamnovu",
   "type": "module",
-  "version": "5.0.0-beta.1",
+  "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@9.12.2",
   "scripts": {

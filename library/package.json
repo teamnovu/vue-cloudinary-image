@@ -1,20 +1,20 @@
 {
-  "name": "vue-cloudinary-image",
+  "name": "@teamnovu/vue-cloudinary-image",
   "type": "module",
-  "version": "1.0.0",
-  "description": "A Vue 3 component library",
+  "version": "5.0.0-beta.1",
+  "description": "Simple Cloudinary Image component for vue",
   "author": {
-    "name": "Gleb Sakharov",
-    "url": "https://github.com/skhrvg"
+    "name": "novu ag",
+    "url": "https://novu.ch"
   },
   "license": "MIT",
-  "homepage": "https://github.com/skhrvg/vue-cloudinary-image/tree/main/#readme",
+  "homepage": "https://github.com/teamnovu/vue-cloudinary-image/tree/main/#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skhrvg/vue-cloudinary-image.git"
+    "url": "https://github.com/teamnovu/vue-cloudinary-image.git"
   },
   "bugs": {
-    "url": "https://github.com/skhrvg/vue-cloudinary-image/issues"
+    "url": "https://github.com/teamnovu/vue-cloudinary-image/issues"
   },
   "exports": {
     ".": {
