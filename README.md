@@ -69,3 +69,17 @@ Vue.use(CloudinaryImage, {
   src="/assets/image.jpg"
 />
 ```
+
+## Development
+
+### Publishing
+1. Stop `pnpm dev` if it's running
+2. Bump the version in `library/package.json`
+3. Build the library
+    ```shell
+    pnpm library:build
+    ```
+4. Publish the library to npm
+    ```shell
+    pnpm library:publish
+    ```
